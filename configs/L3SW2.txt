@@ -1,0 +1,190 @@
+!
+version 17.6
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname L3SW2
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+ip routing
+!
+no ipv6 cef
+!
+!
+!
+ptp mode e2etransparent
+username admin privilege 15 secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 20,99 priority 24576
+spanning-tree vlan 10,50 priority 28672
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 4.4.4.4 255.255.255.255
+!
+interface Port-channel1
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface GigabitEthernet1/1
+ description NOT_IN_USE
+ shutdown
+!
+interface GigabitEthernet1/2
+ description NOT_IN_USE
+ shutdown
+!
+interface GigabitEthernet1/3
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ speed 1000
+!
+interface GigabitEthernet1/4
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ speed 1000
+!
+interface GigabitEthernet1/5
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode passive
+ speed 1000
+!
+interface GigabitEthernet1/6
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode passive
+ speed 1000
+!
+interface GigabitEthernet1/7
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode passive
+ speed 1000
+!
+interface GigabitEthernet1/8
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,50,99
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode passive
+ speed 1000
+!
+interface GigabitEthernet1/9
+ description IN_USE
+ no switchport
+ ip address 198.0.0.9 255.255.255.252
+ duplex auto
+ speed 1000
+!
+interface GigabitEthernet1/10
+ description IN_USE
+ no switchport
+ ip address 198.0.0.5 255.255.255.252
+ duplex auto
+ speed 1000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0060.476b.ed01
+ ip address 192.168.10.252 255.255.255.0
+ ip helper-address 198.0.0.6
+ standby 1 ip 192.168.10.254
+ standby 1 priority 90
+!
+interface Vlan20
+ mac-address 0060.476b.ed02
+ ip address 192.168.20.253 255.255.255.0
+ ip helper-address 198.0.0.10
+ standby 2 ip 192.168.20.254
+ standby 2 preempt
+!
+router ospf 1
+ router-id 4.4.4.4
+ log-adjacency-changes
+ passive-interface GigabitEthernet1/3
+ passive-interface GigabitEthernet1/4
+ network 198.0.0.0 0.0.0.31 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.20.0 0.0.0.255 area 0
+!
+ip classless
+ip route 3.3.3.3 255.255.255.255 192.168.10.253 
+ip route 1.1.1.1 255.255.255.255 GigabitEthernet1/10 
+ip route 2.2.2.2 255.255.255.255 GigabitEthernet1/9 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended BLOCK_SSH_VLAN10
+ deny tcp 192.168.10.0 0.0.0.255 any eq 22
+ permit ip any any
+!
+!
+!
+!
+!
+line con 0
+ login local
+!
+line aux 0
+!
+line vty 0 4
+ access-class BLOCK_SSH_VLAN10 in
+ login local
+ transport input ssh
+line vty 5 15
+ access-class BLOCK_SSH_VLAN10 in
+ login local
+ transport input ssh
+!
+!
+!
+!
+end
+

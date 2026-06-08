@@ -1,0 +1,174 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname SW2
+!
+!
+!
+ip domain-name lab.local
+!
+username admin secret 5 $1$mERr$5.a6P4JqbNiMX01usIfka/
+!
+ip arp inspection vlan 20
+!
+ip dhcp snooping vlan 20
+no ip dhcp snooping information option
+ip dhcp snooping
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 20 priority 61440
+!
+interface FastEthernet0/1
+ description IN_USE
+ switchport access vlan 20
+ switchport mode access
+ switchport nonegotiate
+ switchport voice vlan 50
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security mac-address sticky 
+ switchport port-security violation restrict 
+ switchport port-security mac-address sticky 0004.9A21.602A
+ switchport port-security mac-address sticky 0090.21A4.A94C
+ switchport port-security aging time 5
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/2
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/3
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/4
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/5
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/6
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/7
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/8
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/9
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/10
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/11
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/12
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/13
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/14
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/15
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/16
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/17
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/18
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/19
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/20
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/21
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/22
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/23
+ description NOT_IN_USE
+ shutdown
+!
+interface FastEthernet0/24
+ description NOT_IN_USE
+ shutdown
+!
+interface GigabitEthernet0/1
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 20,50,99
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+ switchport nonegotiate
+ speed 1000
+!
+interface GigabitEthernet0/2
+ description IN_USE
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 20,50,99
+ ip arp inspection trust
+ ip dhcp snooping trust
+ switchport mode trunk
+ switchport nonegotiate
+ speed 1000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+!
+!
+!
+line con 0
+ login local
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+!
+end
+
