@@ -32,7 +32,6 @@ This lab simulates a realistic enterprise network environment with a Core, Distr
 - `README.md` — project overview and documentation
 - `lab/enterprise-lab.pkt` — Cisco Packet Tracer file
 - `configs/` — per-device running configurations
-- `diagrams/topology.png` — network topology diagram
 - `docs/lab-documentation.docx` — full 15-page technical documentation
 
 ---
