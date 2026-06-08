@@ -42,9 +42,3 @@ This lab simulates a realistic enterprise network environment with a Core, Distr
 1. Download and install [Cisco Packet Tracer](https://www.netacad.com/courses/packet-tracer) (free with NetAcad account)
 2. Open `lab/enterprise-lab.pkt`
 3. Refer to `docs/lab-documentation.docx` for full design decisions, IP addressing, and configuration rationale
-
----
-
-## About
-
-Self-taught network engineer with hands-on experience in enterprise LAN/WAN design, Linux administration, and network automation (Ansible). This lab was built as part of CCNA 200-301 exam preparation and portfolio development.
